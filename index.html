@@ -837,13 +837,27 @@
           <div class="blog-img">
             <div class="blog-img-accent"></div>
             <div class="blog-img-accent2"></div>
+            <span class="blog-category">Notice</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-date">February 2026</div>
+            <h3>Unit Test-I Schedule – Session 2025-26 (Sem. II, IV, VI)</h3>
+            <p>The First Unit Test Examination for B.Sc., B.A., and M.Sc. students (NEP &amp; CBCS) has been rescheduled. Exams will be conducted from <strong>28/02/2026 to 10/03/2026</strong> across Science, Humanities, and Postgraduate courses.</p>
+            <a href="#" class="blog-read" onclick="openBlog('notice'); return false;">View Notice →</a>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <div class="blog-img">
+            <div class="blog-img-accent"></div>
+            <div class="blog-img-accent2"></div>
             <span class="blog-category">Education</span>
           </div>
           <div class="blog-body">
             <div class="blog-date">March 15, 2024</div>
             <h3>Effective Study Strategies for Engineering Students</h3>
             <p>Practical tips and evidence-based techniques to help students retain complex concepts and perform better in examinations.</p>
-            <a href="#" class="blog-read">Read More →</a>
+            <a href="#" class="blog-read" onclick="openBlog('study'); return false;">Read More →</a>
           </div>
         </div>
 
@@ -857,7 +871,7 @@
             <div class="blog-date">January 28, 2024</div>
             <h3>Current Trends in [Your Research Area]</h3>
             <p>An accessible overview of the latest developments and emerging directions in the field for students and enthusiasts.</p>
-            <a href="#" class="blog-read">Read More →</a>
+            <a href="#" class="blog-read" onclick="openBlog('research'); return false;">Read More →</a>
           </div>
         </div>
 
@@ -871,7 +885,7 @@
             <div class="blog-date">November 10, 2023</div>
             <h3>How to Write a Strong Research Proposal</h3>
             <p>A step-by-step guide for postgraduate students on crafting compelling research proposals that get accepted.</p>
-            <a href="#" class="blog-read">Read More →</a>
+            <a href="#" class="blog-read" onclick="openBlog('proposal'); return false;">Read More →</a>
           </div>
         </div>
 
@@ -966,6 +980,66 @@
     <p>&copy; 2026 Dr. Abhijeet Dhore. All rights reserved.</p>
   </footer>
 
+  <!-- BLOG FULL PAGE OVERLAY -->
+  <div id="blog-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:var(--cream); z-index:999; overflow-y:auto;">
+    <div style="max-width:800px; margin:0 auto; padding:100px 5% 60px;">
+      <button onclick="closeBlog()" style="display:inline-flex; align-items:center; gap:0.5rem; background:none; border:1px solid var(--gold); color:var(--gold); padding:0.5rem 1.2rem; font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; margin-bottom:3rem; transition:all 0.3s;">
+        ← Back to Blog
+      </button>
+      <div id="blog-page-content"></div>
+    </div>
+  </div>
+
+  <style>
+    #blog-overlay { animation: none; }
+    #blog-overlay.visible { animation: fadeIn 0.3s ease forwards; }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+    .blog-page-label {
+      font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:0.5rem;
+    }
+    .blog-page-title {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(1.8rem, 4vw, 2.8rem);
+      font-weight:300; color:var(--ink);
+      margin-bottom:1rem; line-height:1.15;
+    }
+    .blog-page-meta {
+      font-size:0.85rem; color:var(--text-muted);
+      margin-bottom:2rem; padding-bottom:2rem;
+      border-bottom:1px solid var(--cream-dark);
+    }
+    .blog-page-body { font-size:1rem; line-height:1.9; color:var(--text); }
+    .blog-page-body p { margin-bottom:1.2rem; }
+    .blog-page-body h3 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.4rem; color:var(--ink);
+      margin:2rem 0 0.75rem;
+    }
+    .blog-page-body table {
+      width:100%; border-collapse:collapse;
+      margin:1.5rem 0; font-size:0.88rem;
+    }
+    .blog-page-body th {
+      background:var(--navy); color:var(--gold);
+      padding:0.6rem 0.8rem; text-align:left;
+      font-weight:500; letter-spacing:0.04em;
+    }
+    .blog-page-body td {
+      padding:0.55rem 0.8rem;
+      border-bottom:1px solid var(--cream-dark);
+      color:var(--text);
+    }
+    .blog-page-body tr:nth-child(even) td { background:var(--cream); }
+    .blog-page-body .notice-box {
+      background:var(--navy); color:rgba(255,255,255,0.85);
+      padding:1.5rem 2rem; margin-bottom:2rem;
+      border-left:4px solid var(--gold);
+    }
+    .blog-page-body .notice-box strong { color:var(--gold-light); }
+  </style>
+
   <script>
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
@@ -978,6 +1052,188 @@
         hamburger.classList.remove('open');
         navLinks.classList.remove('open');
       });
+    });
+
+    const blogContent = {
+      notice: {
+        label: 'Notice · February 2026',
+        title: 'Unit Test-I Schedule – Session 2025-26 (Sem. II, IV, VI)',
+        meta: 'Shri. Dr. R. G. Rathod Arts and Science College, Murtizapur | Central Exam Cell (Session 2025-26)',
+        body: `
+          <div class="notice-box">
+            <strong>Important Notice:</strong> The Unit Test which was originally scheduled from 20/02/2026 has been postponed. The Unit Test will now be conducted from <strong>28/02/2026 to 10/03/2026</strong>. All students are requested to take note of this change.
+          </div>
+
+          <p>All students of B.Sc., B.A., and M.Sc. are hereby informed that the First Unit Test Examination (Unit Test-I, Summer 2025, Sem. II, IV, VI) will be conducted as per the following schedule under <strong>NEP and CBCS Pattern</strong>.</p>
+
+          <h3>🔬 Science & Technology — B.Sc. I (NEP)</h3>
+          <table>
+            <tr><th>Sr. No.</th><th>Subject</th><th>Day</th><th>Date</th><th>Room No.</th><th>Time</th></tr>
+            <tr><td colspan="6"><strong>AEC</strong></td></tr>
+            <tr><td>01</td><td>Marathi</td><td>Saturday</td><td>28/02/2026</td><td>1, 2, 3</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>02</td><td>English</td><td>Monday</td><td>02/03/2026</td><td>1, 2, 3</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td colspan="6"><strong>Major / Minor</strong></td></tr>
+            <tr><td>03</td><td>Chemistry / Computer</td><td>Wednesday</td><td>04/03/2026</td><td>1, 2, 3</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>04</td><td>Physics / Botany</td><td>Thursday</td><td>05/03/2026</td><td>1, 2, 3</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>05</td><td>Mathematics / Zoology</td><td>Friday</td><td>06/03/2026</td><td>1, 2, 3</td><td>12:00 noon – 1:00 pm</td></tr>
+          </table>
+
+          <h3>🔬 Science & Technology — B.Sc. II (NEP)</h3>
+          <table>
+            <tr><th>Sr. No.</th><th>Subject</th><th>Day</th><th>Date</th><th>Room No.</th><th>Time</th></tr>
+            <tr><td colspan="6"><strong>AEC</strong></td></tr>
+            <tr><td>01</td><td>Marathi</td><td>Saturday</td><td>28/02/2026</td><td>4, 5, 6</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>02</td><td>English</td><td>Monday</td><td>02/03/2026</td><td>4, 5, 6</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td colspan="6"><strong>Major</strong></td></tr>
+            <tr><td>03</td><td>Chemistry-III / Computer-III</td><td>Wednesday</td><td>04/03/2026</td><td>4, 5, 6</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>04</td><td>Chemistry-IV / Computer-IV</td><td>Thursday</td><td>05/03/2026</td><td>4, 5, 6</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>05</td><td>Physics-III / Botany-III</td><td>Friday</td><td>06/03/2026</td><td>4, 5, 6</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>06</td><td>Physics-IV / Botany-IV</td><td>Saturday</td><td>07/03/2026</td><td>4, 5, 6</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>07</td><td>Mathematics-III / Zoology-III</td><td>Monday</td><td>09/03/2026</td><td>4, 5, 6</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>08</td><td>Mathematics-IV / Zoology-IV</td><td>Tuesday</td><td>10/03/2026</td><td>4, 5, 6</td><td>12:00 noon – 1:00 pm</td></tr>
+          </table>
+
+          <h3>🔬 Science & Technology — B.Sc. III (CBCS)</h3>
+          <table>
+            <tr><th>Sr. No.</th><th>Subject</th><th>Day</th><th>Date</th><th>Room No.</th><th>Time</th></tr>
+            <tr><td>01</td><td>Chemistry / Computer</td><td>Saturday</td><td>28/02/2026</td><td>6, 7, 8</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>02</td><td>Physics / Botany</td><td>Monday</td><td>02/03/2026</td><td>6, 7, 8</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>03</td><td>Mathematics-I / Zoology</td><td>Wednesday</td><td>04/03/2026</td><td>6, 7, 8</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>04</td><td>Mathematics-II</td><td>Thursday</td><td>05/03/2026</td><td>6, 7, 8</td><td>12:00 noon – 1:00 pm</td></tr>
+          </table>
+
+          <h3>🎓 M.Sc. (NEP) — I & II</h3>
+          <table>
+            <tr><th>Sr. No.</th><th>Subject</th><th>Day</th><th>Date</th><th>Time</th></tr>
+            <tr><td>01</td><td>Mathematics-I / Zoology-I / Chemistry-I</td><td>Saturday</td><td>28/02/2026</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>02</td><td>Mathematics-II / Zoology-II / Chemistry-II</td><td>Monday</td><td>02/03/2026</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>03</td><td>Mathematics-III / Zoology-III / Chemistry-III</td><td>Wednesday</td><td>04/03/2026</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>04</td><td>Mathematics-IV / Zoology-IV / Chemistry-IV</td><td>Thursday</td><td>05/03/2026</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>05</td><td>Mathematics-V</td><td>Friday</td><td>06/03/2026</td><td>12:00 noon – 1:00 pm</td></tr>
+          </table>
+
+          <h3>📚 Humanities — B.A. I (NEP)</h3>
+          <table>
+            <tr><th>Sr. No.</th><th>Subject</th><th>Day</th><th>Date</th><th>Room No.</th><th>Time</th></tr>
+            <tr><td colspan="6"><strong>AEC</strong></td></tr>
+            <tr><td>01</td><td>Marathi</td><td>Saturday</td><td>28/02/2026</td><td>1, 2, 3</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>02</td><td>English</td><td>Monday</td><td>02/03/2026</td><td>1, 2, 3</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td colspan="6"><strong>Major / Minor</strong></td></tr>
+            <tr><td>03</td><td>Political Science / History</td><td>Wednesday</td><td>04/03/2026</td><td>1, 2, 3</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>04</td><td>English Literature / Home Economics</td><td>Thursday</td><td>05/03/2026</td><td>1, 2, 3</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>05</td><td>Economics</td><td>Friday</td><td>06/03/2026</td><td>1, 2, 3</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>06</td><td>Sociology / Marathi Literature</td><td>Saturday</td><td>07/03/2026</td><td>1, 2, 3</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>07</td><td>Marathi / Geography</td><td>Monday</td><td>09/03/2026</td><td>1, 2, 3</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>08</td><td>English / Music</td><td>Tuesday</td><td>10/03/2026</td><td>1, 2, 3</td><td>12:00 noon – 1:00 pm</td></tr>
+          </table>
+
+          <h3>📚 Humanities — B.A. III (CBCS)</h3>
+          <table>
+            <tr><th>Sr. No.</th><th>Subject</th><th>Day</th><th>Date</th><th>Room No.</th><th>Time</th></tr>
+            <tr><td>01</td><td>Sociology / Political Science</td><td>Saturday</td><td>28/02/2026</td><td>7, 8, 9</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>02</td><td>Economics / Geography / Music / Home Economics / English Literature</td><td>Monday</td><td>02/03/2026</td><td>7, 8, 9</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>03</td><td>Marathi Literature / History</td><td>Wednesday</td><td>04/03/2026</td><td>7, 8, 9</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>04</td><td>Marathi</td><td>Thursday</td><td>05/03/2026</td><td>7, 8, 9</td><td>12:00 noon – 1:00 pm</td></tr>
+            <tr><td>05</td><td>English</td><td>Friday</td><td>06/03/2026</td><td>7, 8, 9</td><td>12:00 noon – 1:00 pm</td></tr>
+          </table>
+
+          <p style="margin-top:2rem; color:var(--text-muted); font-size:0.9rem;">Place: Murtizapur &nbsp;|&nbsp; In charge: Central Exam Cell &nbsp;|&nbsp; IQAC Co-ordinator &nbsp;|&nbsp; Principal</p>
+        `
+      },
+      study: {
+        label: 'Education · March 15, 2024',
+        title: 'Effective Study Strategies for Engineering Students',
+        meta: 'By Dr. Abhijeet Dhore',
+        body: `
+          <p>Engineering education demands rigorous analytical thinking, consistent practice, and smart study habits. Over years of teaching, I've observed that students who excel are not necessarily those who study the longest — they study the smartest.</p>
+
+          <h3>1. Spaced Repetition</h3>
+          <p>Rather than cramming all revision into one session, spread your study over multiple shorter sessions across days. This technique leverages how long-term memory is formed and dramatically improves retention of complex formulas and concepts.</p>
+
+          <h3>2. Active Recall over Passive Reading</h3>
+          <p>Closing your textbook and trying to recall key ideas forces your brain to work harder. Use flashcards, write summaries from memory, or teach concepts to a peer. Research consistently shows active recall outperforms re-reading by a wide margin.</p>
+
+          <h3>3. Solve Problems First, Then Read Theory</h3>
+          <p>Attempting a problem before reading the solution creates a "desirable difficulty" that primes your brain to absorb the theory more deeply. This approach is especially effective for mathematics and physics.</p>
+
+          <h3>4. Use the Feynman Technique</h3>
+          <p>Choose a concept, explain it in simple language as if teaching a beginner, identify gaps in your explanation, and return to the source material to fill those gaps. If you cannot explain it simply, you do not yet understand it deeply.</p>
+
+          <h3>5. Prioritise Sleep and Physical Health</h3>
+          <p>Memory consolidation occurs during sleep. Sacrificing sleep for late-night studying is counterproductive. Aim for 7–8 hours, especially the night before examinations, and maintain regular physical activity to support cognitive performance.</p>
+
+          <p>These strategies, applied consistently, can make a meaningful difference in both examination performance and long-term understanding of engineering principles.</p>
+        `
+      },
+      research: {
+        label: 'Research · January 28, 2024',
+        title: 'Current Trends in Research',
+        meta: 'By Dr. Abhijeet Dhore',
+        body: `
+          <p>The landscape of academic research is evolving rapidly, driven by interdisciplinary collaboration, open-access publishing, and the integration of computational tools. Here is an overview of some of the most significant trends shaping research today.</p>
+
+          <h3>Interdisciplinary Approaches</h3>
+          <p>Some of the most exciting breakthroughs are occurring at the intersection of disciplines — physics meeting biology, computer science informing linguistics, and chemistry enabling materials science. Researchers who can bridge domains are increasingly valued in both academia and industry.</p>
+
+          <h3>Open Science and Reproducibility</h3>
+          <p>There is growing emphasis on making research data, code, and methodologies publicly available. Journals and funding bodies increasingly require open-access publication and data sharing, improving the reproducibility of findings across the scientific community.</p>
+
+          <h3>AI-Assisted Research</h3>
+          <p>Machine learning tools are accelerating literature review, hypothesis generation, and data analysis. While AI does not replace scientific reasoning, it significantly reduces the time required for pattern recognition in large datasets.</p>
+
+          <h3>Student Opportunities</h3>
+          <p>Students interested in entering research should focus on building strong foundational skills, seeking mentorship early, attending seminars, and contributing to ongoing projects within their departments. Even small contributions to published work build valuable experience and credibility.</p>
+        `
+      },
+      proposal: {
+        label: 'Career · November 10, 2023',
+        title: 'How to Write a Strong Research Proposal',
+        meta: 'By Dr. Abhijeet Dhore',
+        body: `
+          <p>A well-crafted research proposal is your first and most important opportunity to convince a committee, funding body, or supervisor that your project is worthy of support. Here is a step-by-step guide to writing one that stands out.</p>
+
+          <h3>Step 1: Define a Clear Research Question</h3>
+          <p>Your proposal lives or dies on the quality of the research question. It should be specific enough to be answerable within your proposed scope and timeframe, yet significant enough to be worth investigating. Avoid questions that are too broad or already conclusively answered.</p>
+
+          <h3>Step 2: Review Existing Literature</h3>
+          <p>Demonstrate that you are familiar with what has already been done. Identify gaps, contradictions, or unexplored angles in the existing literature — your proposal should explain how your work addresses one of these gaps.</p>
+
+          <h3>Step 3: Describe Your Methodology</h3>
+          <p>Be specific about your research design, data collection methods, sample size (if applicable), and analytical techniques. Committees look for feasibility — show that you have a realistic plan to answer your question with available resources.</p>
+
+          <h3>Step 4: Outline Expected Outcomes</h3>
+          <p>Describe what you expect to find and why it matters. What will be the contribution to knowledge? Who will benefit from this research? Be honest about limitations and how you plan to manage them.</p>
+
+          <h3>Step 5: Structure and Clarity</h3>
+          <p>Use clear headings, precise language, and adhere strictly to any word limits. A proposal that is difficult to read is unlikely to succeed regardless of the quality of the underlying idea. Have at least one colleague review it before submission.</p>
+
+          <p>With preparation and attention to these principles, your research proposal can open doors to opportunities that define the trajectory of your academic career.</p>
+        `
+      }
+    };
+
+    function openBlog(key) {
+      const post = blogContent[key];
+      if (!post) return;
+      const overlay = document.getElementById('blog-overlay');
+      document.getElementById('blog-page-content').innerHTML = `
+        <p class="blog-page-label">${post.label}</p>
+        <h1 class="blog-page-title">${post.title}</h1>
+        <div class="blog-page-meta">${post.meta}</div>
+        <div class="blog-page-body">${post.body}</div>
+      `;
+      overlay.style.display = 'block';
+      overlay.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeBlog() {
+      document.getElementById('blog-overlay').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeBlog();
     });
   </script>
 </body>
