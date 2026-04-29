@@ -20,13 +20,109 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
 
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--cream);
       color: var(--text);
       overflow-x: hidden;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    #page-container {
+      position: fixed;
+      top: 64px;
+      left: 0; right: 0; bottom: 0;
+      overflow: hidden;
+    }
+
+    /* Each section is a full page panel */
+    section, #home {
+      position: absolute;
+      inset: 0;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      /* restore original section padding but no top padding for nav */
+    }
+
+    section.active-page, #home.active-page {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    /* Page indicator dots */
+    #page-dots {
+      position: fixed;
+      right: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 200;
+    }
+    .page-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(184,150,90,0.3);
+      border: 1px solid var(--gold);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .page-dot.active {
+      background: var(--gold);
+      transform: scale(1.3);
+    }
+    .page-dot:hover { background: var(--gold-light); }
+
+    /* Prev / Next nav arrows */
+    #page-nav {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      z-index: 200;
+    }
+    .page-nav-btn {
+      background: rgba(13,27,42,0.85);
+      border: 1px solid rgba(184,150,90,0.4);
+      color: var(--gold);
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      font-size: 1rem;
+    }
+    .page-nav-btn:hover {
+      background: var(--gold);
+      color: var(--navy);
+    }
+    .page-nav-btn:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+    #page-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      background: rgba(13,27,42,0.7);
+      padding: 0.3rem 0.9rem;
+      border-radius: 20px;
+      min-width: 100px;
+      text-align: center;
     }
 
     /* ── NAV ── */
@@ -56,7 +152,7 @@
     /* ── HERO ── */
     #home {
       background: var(--navy);
-      padding-top: 64px;
+      overflow-y: auto;
     }
     .hero-photo-wrap {
       width: 100%;
@@ -124,7 +220,7 @@
     .hero-cta:hover { background: var(--gold); color: var(--navy); }
 
     /* ── SECTIONS COMMON ── */
-    section { padding: 90px 5%; }
+    section { padding: 60px 5% 80px; }
     .section-label {
       font-size: 0.72rem; letter-spacing: 0.22em;
       text-transform: uppercase; color: var(--gold);
@@ -448,9 +544,10 @@
     /* ── FOOTER ── */
     footer {
       background: #060f17;
-      padding: 2rem 5%;
+      padding: 1.5rem 5%;
       display: flex; justify-content: space-between; align-items: center;
       border-top: 1px solid rgba(184,150,90,0.15);
+      margin-top: 2rem;
     }
     footer p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
     .footer-brand {
@@ -483,6 +580,8 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
+      #page-dots { right: 0.5rem; }
+      #page-nav { bottom: 0.75rem; }
       .hero-inner { flex-direction: column; gap: 2rem; text-align: center; padding: 2rem 5%; }
       .hero-photo-wrap { width: 100%; }
       .hero-divider { margin: 0 auto 2rem; }
@@ -560,6 +659,19 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
+
+  <!-- PAGE DOTS -->
+  <div id="page-dots"></div>
+
+  <!-- PAGE NAV (prev/next) -->
+  <div id="page-nav">
+    <button class="page-nav-btn" id="btn-prev" title="Previous">&#8593;</button>
+    <span id="page-label"></span>
+    <button class="page-nav-btn" id="btn-next" title="Next">&#8595;</button>
+  </div>
+
+  <!-- PAGE CONTAINER -->
+  <div id="page-container">
 
     <!-- HERO -->
   <section id="home">
@@ -968,28 +1080,94 @@
         </form>
       </div>
     </div>
+    <footer>
+      <div class="footer-brand">Dr. Abhijeet Dhore</div>
+      <p>&copy; 2026 Dr. Abhijeet Dhore. All rights reserved.</p>
+    </footer>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-brand">Dr. Abhijeet Dhore</div>
-    <p>&copy; 2024 Dr. Abhijeet Dhore. All rights reserved.</p>
-    <p>&copy; 2026 Dr. Abhijeet Dhore. All rights reserved.</p>
-  </footer>
+  </div><!-- /#page-container -->
 
   <script>
+    // ── Hamburger ──
     const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
+    const navLinksEl = document.getElementById('navLinks');
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('open');
-      navLinks.classList.toggle('open');
+      navLinksEl.classList.toggle('open');
     });
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        navLinks.classList.remove('open');
+
+    // ── Page-by-page navigation ──
+    const pageIds = ['home','about','research','video-lectures','blog','question-papers','student-resources','contact'];
+    const pageLabels = ['Home','About Me','Research','Lectures','Blog','Papers','Resources','Contact'];
+    let current = 0;
+
+    const dotsContainer = document.getElementById('page-dots');
+    const pageLabelEl   = document.getElementById('page-label');
+    const btnPrev       = document.getElementById('btn-prev');
+    const btnNext       = document.getElementById('btn-next');
+
+    // Build dots
+    pageIds.forEach((id, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'page-dot' + (i === 0 ? ' active' : '');
+      dot.title = pageLabels[i];
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function goTo(index) {
+      const pages = document.querySelectorAll('#page-container > section, #page-container > #home');
+      pages.forEach((p, i) => {
+        p.classList.toggle('active-page', i === index);
+        // scroll each page back to top when switching away
+        if (i !== index) p.scrollTop = 0;
+      });
+      document.querySelectorAll('.page-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === index);
+      });
+      current = index;
+      pageLabelEl.textContent = pageLabels[index];
+      btnPrev.disabled = index === 0;
+      btnNext.disabled = index === pageIds.length - 1;
+
+      // Close mobile nav
+      hamburger.classList.remove('open');
+      navLinksEl.classList.remove('open');
+    }
+
+    // Nav link clicks
+    navLinksEl.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href').replace('#','');
+        const idx = pageIds.indexOf(href);
+        if (idx !== -1) goTo(idx);
       });
     });
+
+    // Hero CTA
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      if (!link.closest('#navLinks')) {
+        link.addEventListener('click', (e) => {
+          const href = link.getAttribute('href').replace('#','');
+          const idx = pageIds.indexOf(href);
+          if (idx !== -1) { e.preventDefault(); goTo(idx); }
+        });
+      }
+    });
+
+    btnPrev.addEventListener('click', () => { if (current > 0) goTo(current - 1); });
+    btnNext.addEventListener('click', () => { if (current < pageIds.length - 1) goTo(current + 1); });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); if (current < pageIds.length - 1) goTo(current + 1); }
+      if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); if (current > 0) goTo(current - 1); }
+    });
+
+    // Init
+    goTo(0);
   </script>
 </body>
 </html>
