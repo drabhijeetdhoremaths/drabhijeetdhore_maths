@@ -253,4 +253,18 @@ section.page-active {
   });
 })();
 </script>
+
+<script>
+function forceDownload(fileId, fileName) {
+  // Use Google Drive's export/download URL
+  var url = 'https://drive.google.com/uc?export=download&confirm=t&id=' + fileId;
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = fileName;
+  a.target = '_blank'; // fallback for mobile
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+</script>
 </body></html>
