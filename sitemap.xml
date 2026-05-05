@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Home -->
+  <url>
+    <loc>https://drabhijeetdhore.com/</loc>
+    <lastmod>2025-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://drabhijeetdhore.com/#about</loc>
+    <lastmod>2025-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Research -->
+  <url>
+    <loc>https://drabhijeetdhore.com/#research</loc>
+    <lastmod>2025-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Video Lectures -->
+  <url>
+    <loc>https://drabhijeetdhore.com/#video-lectures</loc>
+    <lastmod>2025-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://drabhijeetdhore.com/#blog</loc>
+    <lastmod>2025-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Student Resources -->
+  <url>
+    <loc>https://drabhijeetdhore.com/#question-papers</loc>
+    <lastmod>2025-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://drabhijeetdhore.com/#contact</loc>
+    <lastmod>2025-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>
